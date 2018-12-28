@@ -26,7 +26,7 @@ namespace TestMakerFreeWebApp.Controllers
                 Id = 1,
                 Title = "which Shingeki No Kyojin character are you?",
                 Description = "Anime-related personality test",
-                CreateDate = DateTime.Now,
+                CreatedDate = DateTime.Now,
                 LastModifiedDate = DateTime.Now
             });
 
@@ -38,7 +38,7 @@ namespace TestMakerFreeWebApp.Controllers
                     Id = i,
                     Title = String.Format("Sample Quiz {0}", i),
                     Description = "This is a sample quiz",
-                    CreateDate = DateTime.Now,
+                    CreatedDate = DateTime.Now,
                     LastModifiedDate = DateTime.Now
                 });
             }
@@ -66,6 +66,9 @@ namespace TestMakerFreeWebApp.Controllers
         }
 
         //GET api/quiz/Random
+        //summary: returns {num} quizzes in a random order
+        //param: num - number of quizzes to retrive
+        //return: {num} Quizzes sorted randomly
         [HttpGet("Random/{num:int?}")]
         public IActionResult Random(int num = 10)
         {
