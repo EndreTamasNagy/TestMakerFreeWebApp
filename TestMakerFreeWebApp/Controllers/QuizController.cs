@@ -13,8 +13,69 @@ namespace TestMakerFreeWebApp.Controllers
     [Route("api/[controller]")]
     public class QuizController : Controller
     {
-        //Latest method which accepts GET request
-        //GET api/quiz/latest
+        #region RESTful conventions methods
+        /// <summary>
+        /// GET: api/quiz/{}id
+        /// Retrives the Quiz with the given {id}
+        /// </summary>
+        /// <param name="id">The ID of an existing Quiz</param>
+        /// <returns>The Quiz wiht the given {id}</returns>
+        [HttpGet("{id}")]
+        public IActionResult Get(int id)
+        {
+            //create a sample quiz to match the given request
+            var v = new QuizViewModel()
+            {
+                Id = id,
+                Title = String.Format("Sample quiz with id {0}", id),
+                Description = "Not a real quiz: it's just a sample!",
+                CreatedDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now
+            };
+
+            //output the result in JSON format
+            return new JsonResult(v, new JsonSerializerSettings() { Formatting = Formatting.Indented });
+        }
+
+        /// <summary>
+        /// Adds a new Quiz to the Database
+        /// </summary>
+        /// <param name="m">The QuizViewModel containing the data to insert</param>
+        [HttpPut]
+        public IActionResult Put(QuizViewModel m)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Edit the Quiz with the given {id}
+        /// </summary>
+        /// <param name="m">The QuizViewModel containing the data to update</param>
+        /// <returns></returns>
+        [HttpPost]
+        public IActionResult Post(QuizViewModel m)
+        {
+            throw new NotImplementedException();
+        }
+
+        /// <summary>
+        /// Deletes the Quiz with the given {id} from the Database
+        /// </summary>
+        /// <param name="id">The ID of an existing Quiz</param>
+        [HttpDelete]
+        public IActionResult Delete(int id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Attribute-based routing methods
+        /// <summary>
+        /// GET: api/quiz/latest
+        /// Retrives the {num} latest Quizzes
+        /// </summary>
+        /// <param name="num">the number of quizzes to retrive</param>
+        /// <returns>the {nun} latest Quizzes</returns>
         [HttpGet("Latest/{num}")]
         public IActionResult Latest (int num = 10)
         {
@@ -46,13 +107,15 @@ namespace TestMakerFreeWebApp.Controllers
             //output the result in JSON format
             return new JsonResult(sampleQuizzes, new JsonSerializerSettings(){Formatting = Formatting.Indented});
         }
+        #endregion
 
-        //<summary>
-        //GET api/quiz/ByTitle
-        //Retrives the {num} quizzes stored by titel (a-z)
-        //</summary>
-        //<param name="num">the number of quizzes to retrive</param>
-        //<returns>{num} Quizzes sorted by title</returns>
+    
+        /// <summary>
+        /// GET api/quiz/ByTitle
+        /// Retrives the {num} quizzes stored by titel (a-z)
+        /// </summary>
+        /// <param name="num">the number of quizzes to retrive</param>
+        /// <returns>{num} Quizzes sorted by title</returns>
         [HttpGet("ByTitle/{num:int?}")]
         public IActionResult ByTitle(int num = 10)
         {
@@ -64,11 +127,13 @@ namespace TestMakerFreeWebApp.Controllers
                 new JsonSerializerSettings()
                 { Formatting = Formatting.Indented });
         }
-
-        //GET api/quiz/Random
-        //summary: returns {num} quizzes in a random order
-        //param: num - number of quizzes to retrive
-        //return: {num} Quizzes sorted randomly
+ 
+        /// <summary>
+        ///GET: api/quiz/Random 
+        /// returns {num} quizzes in a random order
+        /// </summary>
+        /// <param name="num">number of quizzes to retrive</param>
+        /// <returns>{num} Quizzes sorted randomly</returns>
         [HttpGet("Random/{num:int?}")]
         public IActionResult Random(int num = 10)
         {
@@ -84,5 +149,7 @@ namespace TestMakerFreeWebApp.Controllers
                     Formatting = Formatting.Indented
                 });
         }
+        
+       
     }
 }

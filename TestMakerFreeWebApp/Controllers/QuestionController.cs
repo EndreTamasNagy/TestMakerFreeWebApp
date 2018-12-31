@@ -5,15 +5,14 @@ using TestMakerFreeWebApp.ViewModels;
 using System.Collections.Generic;
 
 
-
 namespace TestMakerFreeWebApp.Controllers
 {
     [Route("api/[controller]")]
-    public class ResultController : Controller
+    public class QuestionController : Controller
     {
         #region RESTful conventions methods
         /// <summary>
-        /// Retrives the Result with the given {id}
+        /// Retrives the Question with the given {id}
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
@@ -24,30 +23,30 @@ namespace TestMakerFreeWebApp.Controllers
         }
 
         /// <summary>
-        /// Adds a new Result to the Database
+        /// Adds a new Question to the Database
         /// </summary>
-        /// <param name="m">The ResultViewModel containing the data to insert</param>
+        /// <param name="m">The QuestionViewModel containing the data to insert</param>
         [HttpPut]
-        public IActionResult Put(ResultViewModel m)
+        public IActionResult Put(QuestionViewModel m)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Edit the Result with the given {id}
+        /// Edit the Question with the given {id}
         /// </summary>
-        /// <param name="m">The ResultViewModel containing the data to update</param>
+        /// <param name="m">The QuestionViewModel containing the data to update</param>
         /// <returns></returns>
         [HttpPost]
-        public IActionResult Post(ResultViewModel m)
+        public IActionResult Post(QuestionViewModel m)
         {
             throw new NotImplementedException();
         }
 
         /// <summary>
-        /// Deletes the Result with the given {id} from the Database
+        /// Deletes the Question with the given {id} from the Database
         /// </summary>
-        /// <param name="id">The ID of an existing Result</param>
+        /// <param name="id">The ID of an existing Question</param>
         [HttpDelete]
         public IActionResult Delete(int id)
         {
@@ -55,27 +54,27 @@ namespace TestMakerFreeWebApp.Controllers
         }
         #endregion
 
-        // GET: api/result/all
-        [HttpGet("All/{quizid}")]
+
+        // GET: api/question/all
+        [HttpGet("All/{quizId}")]
         public IActionResult All(int quizId)
         {
-            //create result container list
-            var sampleResult = new List<ResultViewModel>();
+            var sampleQuestions = new List<QuestionViewModel>();
 
-            //Add first sample result
-            sampleResult.Add(new ResultViewModel()
+            //add first sample question
+            sampleQuestions.Add(new QuestionViewModel()
             {
-                Id=1,
-                QuizId=quizId,
-                Text="What do you value most in your life?",
-                CreatedDate=DateTime.Now,
-                LastModifiedDate=DateTime.Now,
+                Id = 1,
+                QuizId = quizId,
+                Text = "What do you value most in your life?",
+                CreatedDate = DateTime.Now,
+                LastModifiedDate = DateTime.Now
             });
 
-            //Add a bunch of sample results
+            //add a bunch of sample questions
             for(int i = 2; i <= 5; i++)
             {
-                sampleResult.Add(new ResultViewModel()
+                sampleQuestions.Add(new QuestionViewModel()
                 {
                     Id = i,
                     QuizId = quizId,
@@ -85,8 +84,8 @@ namespace TestMakerFreeWebApp.Controllers
                 });
             }
 
-            //return result in JSON format
-            return new JsonResult(sampleResult, new JsonSerializerSettings() { Formatting = Formatting.Indented });
+            //output the result in JSON format
+            return new JsonResult(sampleQuestions, new JsonSerializerSettings() { Formatting = Formatting.Indented });
         }
     }
 }
